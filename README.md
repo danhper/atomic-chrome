@@ -21,7 +21,7 @@
 You need to install
 
 * [The Chrome Plugin](https://chrome.google.com/webstore/detail/atomic-chrome/lhaoghhllmiaaagaffababmkdllgfcmc) (Atomic Chrome from the Chrome Store)
-* [The Atom package](https://atom.io/packages/atomic-chrome) (atomic-chrome form apm)
+* [The Atom package](https://atom.io/packages/atomic-chrome) (`atomic-chrome` from apm)
 
 ## Usage
 
