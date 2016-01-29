@@ -1,0 +1,10 @@
+extends: ../.eslintrc.yaml
+
+env:
+  browser: true
+
+ecmaFeatures:
+  modules: true
+
+globals:
+  chrome: true

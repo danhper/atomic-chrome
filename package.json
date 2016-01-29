@@ -1,0 +1,12 @@
+{
+  "name": "atomic-chrome",
+  "private": true,
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "webpack": "^1.12.12"
+  }
+}

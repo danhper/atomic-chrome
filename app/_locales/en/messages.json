@@ -1,0 +1,14 @@
+{
+  "appName": {
+    "message": "Atomic Chrome",
+    "description": "The name of the application"
+  },
+  "appShortName": {
+    "message": "Atomic",
+    "description": "The short name of the application"
+  },
+  "appDescription": {
+    "message": "Allows to edit textareas and contenteditable elements directly in Atom",
+    "description": "The description of the application"
+  }
+}
