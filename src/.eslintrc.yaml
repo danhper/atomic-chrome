@@ -8,3 +8,4 @@ ecmaFeatures:
 
 globals:
   chrome: true
+  ace: true

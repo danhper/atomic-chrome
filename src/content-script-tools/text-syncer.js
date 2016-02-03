@@ -1,22 +1,22 @@
 const NORMAL_CLOSE_CODE = 1000;
 
 class TextSyncer {
-  linkElem(title, textElem) {
+  linkElem(title, handler) {
     const port = chrome.runtime.connect();
-    this.register(port, title, textElem);
-    port.onMessage.addListener(this.makeMessageHandler(textElem));
-    const textChangeHandler = this.makeTextChangeHandler(port, textElem);
-    textElem.elem.addEventListener('keyup', textChangeHandler, false);
+    this.register(port, title, handler);
+    port.onMessage.addListener(this.makeMessageListener(handler));
+    const textChangeListener = this.makeTextChangeListener(port, handler);
+    handler.bindChange(textChangeListener, false);
     port.onDisconnect.addListener(() => {
-      textElem.elem.removeEventListener('keyup', textChangeHandler, false);
+      handler.unbindChange(textChangeListener, false);
     });
   }
 
-  makeMessageHandler(textElem) {
+  makeMessageListener(handler) {
     return (msg) => {
       switch (msg.type) {
         case 'updateText':
-          textElem.value = msg.payload.text;
+          handler.setValue(msg.payload.text);
           break;
         case 'closed':
           const code = msg.payload.code;
@@ -31,23 +31,23 @@ class TextSyncer {
     };
   }
 
-  makeTextChangeHandler(port, textElem) {
+  makeTextChangeListener(port, handler) {
     return () => {
       port.postMessage({
         type: 'updateText',
         payload: {
-          text: textElem.value
+          text: handler.getValue()
         }
       });
     };
   }
 
-  register(port, title, textElem) {
+  register(port, title, handler) {
     port.postMessage({
       type: 'register',
       payload: {
         title: title,
-        text: textElem.value
+        text: handler.getValue()
       }
     });
   }

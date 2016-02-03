@@ -1,9 +1,11 @@
-import contentEditableHandler from './content-editable';
-import textareaHandler from './textarea';
+import AceHandler from './ace';
+import ContentEditableHandler from './content-editable';
+import TextareaHandler from './textarea';
 
 import handlerFactory from './factory';
 
-handlerFactory.registerHandler(contentEditableHandler);
-handlerFactory.registerHandler(textareaHandler);
+handlerFactory.registerHandler(AceHandler);
+handlerFactory.registerHandler(ContentEditableHandler);
+handlerFactory.registerHandler(TextareaHandler);
 
 export {handlerFactory as handlerFactory};

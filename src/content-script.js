@@ -1,5 +1,5 @@
 import {handlerFactory} from './handlers';
-import {textSyncer, TextElement} from './content-script-tools';
+import {textSyncer} from './content-script-tools';
 
 function run() {
   const title = document.title;
@@ -12,8 +12,7 @@ function run() {
     console.error(`Atomic Chrome does not support <${elemName}> (yet?)`);
     return;
   }
-  const textElem = new TextElement(handler, activeElement);
-  textSyncer.linkElem(title, textElem);
+  textSyncer.linkElem(title, handler);
 }
 
 run();

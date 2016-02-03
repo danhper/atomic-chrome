@@ -1,6 +1,6 @@
 export default class BaseHandler {
-  canHandle() {
-    return false;
+  constructor(elem) {
+    this.elem = elem;
   }
 
   setValue() {
@@ -9,5 +9,15 @@ export default class BaseHandler {
 
   getValue() {
     throw new Error('not implemented');
+  }
+
+  bindChange(f) {
+    this.elem.addEventListener('keyup', f, false);
+    this.elem.addEventListener('change', f, false);
+  }
+
+  unbindChange(f) {
+    this.elem.removeEventListener('keyup', f, false);
+    this.elem.removeEventListener('change', f, false);
   }
 }
