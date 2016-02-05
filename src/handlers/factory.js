@@ -8,9 +8,9 @@ class HandlerFactory {
   }
 
   handlerFor(elem) {
-    for (const handler of this.handlers) {
-      if (handler.canHandle(elem)) {
-        return handler;
+    for (const Handler of this.handlers) {
+      if (Handler.canHandle(elem)) {
+        return new Handler(elem);
       }
     }
     return false;

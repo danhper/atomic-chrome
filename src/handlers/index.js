@@ -1,9 +1,14 @@
-import contentEditableHandler from './content-editable';
-import textareaHandler from './textarea';
+import CodeMirrorHandler from './codemirror';
+import AceHandler from './ace';
+import ContentEditableHandler from './content-editable';
+import TextareaHandler from './textarea';
 
 import handlerFactory from './factory';
 
-handlerFactory.registerHandler(contentEditableHandler);
-handlerFactory.registerHandler(textareaHandler);
+handlerFactory.registerHandler(CodeMirrorHandler);
+handlerFactory.registerHandler(AceHandler);
+handlerFactory.registerHandler(ContentEditableHandler);
+handlerFactory.registerHandler(TextareaHandler);
 
 export {handlerFactory as handlerFactory};
+export {default as injectedHandlerFactory} from './injected-factory';
