@@ -1,38 +1,4 @@
-// TODO: make this abstract and create the ace version
-class MessageHandler {
-  constructor(elem, uuid) {
-    this.elem = elem;
-    this.uuid = uuid;
-    this.editor = ace.edit(elem.parentElement);
-    this.editor.$blockScrolling = Infinity;
-  }
-
-  handleMessage(data) {
-    if (data.uuid !== this.uuid) {
-      return;
-    }
-    if (this[data.type]) {
-      this[data.type](data.payload);
-    }
-  }
-
-  getValue() {
-    this.post('value', {text: this.editor.getValue()});
-  }
-
-  setValue(payload) {
-    this.editor.setValue(payload.text, 1);
-  }
-
-  post(type, payload) {
-    const message = {
-      type: type,
-      uuid: this.uuid,
-      payload: payload || {}
-    };
-    window.postMessage(message, '*');
-  }
-}
+import {injectedHandlerFactory} from './handlers';
 
 const handlers = [];
 
@@ -41,9 +7,15 @@ window.addEventListener('message', function (message) {
     return;
   }
   if (message.data.type === 'initialize') {
-    const handler = new MessageHandler(document.activeElement, message.data.uuid);
+    const handlerName = message.data.payload.name;
+    const Handler = injectedHandlerFactory.getHandler(handlerName);
+    if (!Handler) {
+      console.error(`Atomic Chrome received bad handler name: ${handlerName}`);
+      return;
+    }
+    const handler = new Handler(document.activeElement, message.data.uuid);
     handlers.push(handler);
-    handler.post('ready');
+    handler.postToInjector('ready');
   } else {
     for (const handler of handlers) {
       handler.handleMessage(message.data);

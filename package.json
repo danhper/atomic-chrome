@@ -12,5 +12,8 @@
   "scripts": {
     "prepublish": "./node_modules/.bin/webpack -p",
     "dev": "./node_modules/.bin/webpack --watch"
+  },
+  "dependencies": {
+    "uuid": "^2.0.1"
   }
 }

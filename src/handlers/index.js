@@ -11,3 +11,4 @@ handlerFactory.registerHandler(ContentEditableHandler);
 handlerFactory.registerHandler(TextareaHandler);
 
 export {handlerFactory as handlerFactory};
+export {default as injectedHandlerFactory} from './injected-factory';

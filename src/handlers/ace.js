@@ -1,88 +1,47 @@
-import BaseHandler from './base';
+import InjectorHandler from './injector';
+import injectedHandlerFactory from './injected-factory';
+import BaseInjectedHandler from './base-injected';
 
+const name = 'ace';
 const aceClassName = 'ace_text-input';
 
-class AceHandler extends BaseHandler {
+class AceHandler extends InjectorHandler {
   constructor(elem) {
-    super(elem);
-    this.callback = null;
-    this.initialized = false;
-    // TODO: generate a uuid to allow multiple instances to work together
-    this.uuid = null;
+    super(elem, name);
+  }
+}
 
-    window.addEventListener('message', (message) => {
-      if (message.source !== window /* || message.data.uuid !== this.uuid */) {
-        return;
-      }
-      this.emit(message.data.type, message.data.payload);
-    });
+class InjectedAceHandler extends BaseInjectedHandler {
+  constructor(elem, uuid) {
+    super(elem, uuid);
   }
 
   load() {
-    this.injectScript(() => this.post('initialize'));
-    return new Promise((resolve) => this.once('ready', resolve));
-  }
-
-  // TODO: check if script is already injected
-  // TODO: move this to a parent class
-  injectScript(onload) {
-    var s = document.createElement('script');
-    s.src = chrome.extension.getURL('scripts/injected.js');
-    s.onload = function () {
-      this.parentNode.removeChild(this);
-      if (onload) {
-        onload();
-      }
-    };
-    document.body.appendChild(s);
-  }
-
-  setValue(value) {
-    this.post('setValue', {text: value});
+    this.editor = ace.edit(this.elem.parentElement);
+    this.editor.$blockScrolling = Infinity;
   }
 
   getValue() {
-    this.post('getValue');
-    return new Promise((resolve) => {
-      this.once('value', (payload) => {
-        resolve(payload.text);
-      });
-    });
+    return this.editor.getValue();
   }
 
-  post(type, payload) {
-    const message = {
-      type: type,
-      uuid: this.uuid,
-      payload: payload || {}
-    };
-    // TODO: change '*' to something secure
-    window.postMessage(message, '*');
+  setValue(text) {
+    this.editor.setValue(text, 1);
   }
 
-  withoutCallback(action) {
-    if (this.callback) {
-      this.unbindChange(this.callback);
-    }
-    action();
-    if (this.callback) {
-      this.bindChange(this.callback);
-    }
-  }
-
-  // TODO: not implemented yet
   bindChange(f) {
-    // this.callback = f;
-    // this.editor.on('change', f);
+    this.editor.on('change', f);
   }
 
   unbindChange(f) {
-    // this.editor.off('change', f);
+    this.editor.off('change', f);
   }
 }
 
 AceHandler.canHandle = function (elem) {
   return elem.classList.contains(aceClassName);
 };
+
+injectedHandlerFactory.registerHandler(name, InjectedAceHandler);
 
 export default AceHandler;

@@ -1,6 +1,7 @@
 import BaseHandler from './base';
 
 class ContentEditableHandler extends BaseHandler {
+  // TODO: extract the formatting logic
   getValue(options) {
     options = options || {};
     const text = Array.from(this.elem.childNodes).map((child, i) => {

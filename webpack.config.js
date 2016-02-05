@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 module.exports = {
   entry: {
     background: ['./src/background.js'],
@@ -16,6 +18,11 @@ module.exports = {
       loader: 'babel?presets[]=es2015',
       exclude: /node_modules/
     }]
+  },
+  resolve: {
+    alias: {
+      'ac-util': path.join(__dirname, 'src', 'util')
+    }
   },
   externals: {
     chrome: 'chrome'
