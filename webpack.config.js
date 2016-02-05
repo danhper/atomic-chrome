@@ -3,7 +3,8 @@
 module.exports = {
   entry: {
     background: ['./src/background.js'],
-    'content-script': ['./src/content-script.js']
+    'content-script': ['./src/content-script.js'],
+    injected: ['./src/injected.js']
   },
   output: {
     filename: '[name].js',

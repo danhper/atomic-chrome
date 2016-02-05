@@ -12,8 +12,5 @@
   "scripts": {
     "prepublish": "./node_modules/.bin/webpack -p",
     "dev": "./node_modules/.bin/webpack --watch"
-  },
-  "dependencies": {
-    "brace": "^0.7.0"
   }
 }

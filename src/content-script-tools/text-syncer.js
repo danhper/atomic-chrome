@@ -33,22 +33,26 @@ class TextSyncer {
 
   makeTextChangeListener(port, handler) {
     return () => {
-      port.postMessage({
-        type: 'updateText',
-        payload: {
-          text: handler.getValue()
-        }
+      handler.getValue().then((text) => {
+        port.postMessage({
+          type: 'updateText',
+          payload: {
+            text: text
+          }
+        });
       });
     };
   }
 
   register(port, title, handler) {
-    port.postMessage({
-      type: 'register',
-      payload: {
-        title: title,
-        text: handler.getValue()
-      }
+    handler.getValue().then((text) => {
+      port.postMessage({
+        type: 'register',
+        payload: {
+          title: title,
+          text: text
+        }
+      });
     });
   }
 }

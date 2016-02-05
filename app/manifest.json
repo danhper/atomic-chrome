@@ -14,6 +14,9 @@
       "scripts/background.js"
     ]
   },
+  "web_accessible_resources": [
+    "scripts/injected.js"
+  ],
   "permissions": [
     "tabs",
     "activeTab",

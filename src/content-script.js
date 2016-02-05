@@ -12,7 +12,10 @@ function run() {
     console.error(`Atomic Chrome does not support <${elemName}> (yet?)`);
     return;
   }
-  textSyncer.linkElem(title, handler);
+
+  handler.load().then(() => {
+    textSyncer.linkElem(title, handler);
+  });
 }
 
 run();

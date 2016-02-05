@@ -6,7 +6,7 @@ class TextareaHandler extends BaseHandler {
   }
 
   getValue() {
-    return this.elem.value;
+    return Promise.resolve(this.elem.value);
   }
 }
 

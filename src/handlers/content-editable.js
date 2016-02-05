@@ -3,7 +3,7 @@ import BaseHandler from './base';
 class ContentEditableHandler extends BaseHandler {
   getValue(options) {
     options = options || {};
-    return Array.from(this.elem.childNodes).map((child, i) => {
+    const text = Array.from(this.elem.childNodes).map((child, i) => {
       if (child.wholeText) {
         return child.wholeText;
       }
@@ -17,6 +17,7 @@ class ContentEditableHandler extends BaseHandler {
           return child.outerHTML;
       }
     }).join('');
+    return Promise.resolve(text);
   }
 
   setValue(value) {

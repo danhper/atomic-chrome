@@ -1,6 +1,13 @@
-export default class BaseHandler {
+import EventEmitter from 'events';
+
+export default class BaseHandler extends EventEmitter {
   constructor(elem) {
+    super();
     this.elem = elem;
+  }
+
+  load() {
+    return Promise.resolve();
   }
 
   setValue() {
