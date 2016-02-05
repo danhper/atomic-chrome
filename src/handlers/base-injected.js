@@ -39,6 +39,20 @@ export default class BaseInjectedHandler {
     throw new Error('not implemented');
   }
 
+  executeSilenced(f) {
+    this.silenced = true;
+    f();
+    this.silenced = false;
+  }
+
+  wrapSilence(f) {
+    return () => {
+      if (!this.silenced) {
+        f();
+      }
+    };
+  }
+
   postToInjector(type, payload) {
     const message = {
       type: type,

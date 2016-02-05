@@ -1,24 +1,29 @@
 import BaseHandler from './base';
 
 class ContentEditableHandler extends BaseHandler {
-  // TODO: extract the formatting logic
-  getValue(options) {
+  getValue() {
+    const result = this.extractText(this.elem);
+    return Promise.resolve(result);
+  }
+
+  // TODO: extract this to a dedicated class
+  extractText(elem, options) {
     options = options || {};
-    const text = Array.from(this.elem.childNodes).map((child, i) => {
+    return Array.from(elem.childNodes).map((child, i) => {
       if (child.wholeText) {
-        return child.wholeText;
+        return child.wholeText + (options.noLinebreak ? '' : '\n');
       }
       const tag = child.tagName.toLowerCase();
       switch (tag) {
         case 'div':
-          return this.getValue(child) + '\n';
+          return this.extractText(child, {noLinebreak: true}) + '\n';
         case 'br':
-          return (i === this.elem.childNodes.length - 1) ? '' : '\n';
+          const noBreak = options.noLinebreak || i === this.elem.childNodes.length - 1;
+          return noBreak ? '' : '\n';
         default:
           return child.outerHTML;
       }
     }).join('');
-    return Promise.resolve(text);
   }
 
   setValue(value) {

@@ -14,6 +14,7 @@ class AceHandler extends InjectorHandler {
 class InjectedAceHandler extends BaseInjectedHandler {
   constructor(elem, uuid) {
     super(elem, uuid);
+    this.silenced = false;
   }
 
   load() {
@@ -26,11 +27,11 @@ class InjectedAceHandler extends BaseInjectedHandler {
   }
 
   setValue(text) {
-    this.editor.setValue(text, 1);
+    this.executeSilenced(() => this.editor.setValue(text, 1));
   }
 
   bindChange(f) {
-    this.editor.on('change', f);
+    this.editor.on('change', this.wrapSilence(f));
   }
 
   unbindChange(f) {
