@@ -3,8 +3,8 @@ import uuid from 'uuid';
 import BaseHandler from './base';
 
 export default class InjectorHandler extends BaseHandler {
-  constructor(elem, name) {
-    super(elem);
+  constructor(elem, contentEvents, name) {
+    super(elem, contentEvents);
     this.name = name;
     this.uuid = uuid.v4();
 

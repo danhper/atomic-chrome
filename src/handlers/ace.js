@@ -6,8 +6,8 @@ const name = 'ace';
 const aceClassName = 'ace_text-input';
 
 class AceHandler extends InjectorHandler {
-  constructor(elem) {
-    super(elem, name);
+  constructor(elem, contentEvents) {
+    super(elem, contentEvents, name);
   }
 }
 

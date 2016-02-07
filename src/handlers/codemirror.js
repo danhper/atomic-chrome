@@ -5,8 +5,8 @@ import BaseInjectedHandler from './base-injected';
 const name = 'codeMirror';
 
 class CodeMirrorHandler extends InjectorHandler {
-  constructor(elem) {
-    super(elem, name);
+  constructor(elem, contentEvents) {
+    super(elem, contentEvents, name);
   }
 }
 
