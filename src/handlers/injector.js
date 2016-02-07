@@ -23,6 +23,7 @@ export default class InjectorHandler extends BaseHandler {
 
   setValue(value) {
     this.postToInjected('setValue', {text: value});
+    super.setValue(value);
   }
 
   getValue() {

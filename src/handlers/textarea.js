@@ -3,6 +3,7 @@ import BaseHandler from './base';
 class TextareaHandler extends BaseHandler {
   setValue(value) {
     this.elem.value = value;
+    super.setValue(value);
   }
 
   getValue() {

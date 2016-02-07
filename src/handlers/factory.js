@@ -10,7 +10,7 @@ class HandlerFactory {
   handlerFor(elem) {
     for (const Handler of this.handlers) {
       if (Handler.canHandle(elem)) {
-        return new Handler(elem);
+        return Handler;
       }
     }
     return false;

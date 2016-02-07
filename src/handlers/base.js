@@ -1,17 +1,20 @@
 import EventEmitter from 'events';
 
 export default class BaseHandler extends EventEmitter {
-  constructor(elem) {
+  constructor(elem, contentEvents) {
     super();
     this.elem = elem;
+    contentEvents.bind(this, window);
   }
 
   load() {
     return Promise.resolve();
   }
 
-  setValue() {
-    throw new Error('not implemented');
+  setValue(value) {
+    if (value) {
+      this.emit('valueSet');
+    }
   }
 
   getValue() {

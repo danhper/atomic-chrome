@@ -34,6 +34,7 @@ class ContentEditableHandler extends BaseHandler {
       return '<div>' + v + '</div>';
     }).join('');
     this.elem.innerHTML = htmlValue;
+    super.setValue(value);
   }
 }
 
