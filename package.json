@@ -10,7 +10,8 @@
     "webpack": "^1.12.12"
   },
   "scripts": {
-    "prepublish": "./node_modules/.bin/webpack -p",
+    "prepublish": "npm run build",
+    "build": "./node_modules/.bin/webpack -p",
     "dev": "./node_modules/.bin/webpack --watch"
   },
   "dependencies": {
