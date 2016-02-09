@@ -1,9 +1,4 @@
-const events = [{
-  url: new RegExp('https://inbox.google.com.*', 'i'),
-  bind: function (window) {
-    this.once('valueSet', () => window.dispatchEvent(new Event('resize')));
-  }
-}];
+import events from './custom-events';
 
 export default {
   bind: (target, window) => {

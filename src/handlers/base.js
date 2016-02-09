@@ -12,9 +12,7 @@ export default class BaseHandler extends EventEmitter {
   }
 
   setValue(value) {
-    if (value) {
-      this.emit('valueSet');
-    }
+    this.emit('valueSet', value);
   }
 
   getValue() {
