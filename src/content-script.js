@@ -15,8 +15,8 @@ function run() {
 
   const handler = new Handler(activeElement, contentEvents);
 
-  handler.load().then(() => {
-    textSyncer.linkElem(title, handler);
+  handler.load().then((options) => {
+    textSyncer.linkElem(title, handler, options);
   });
 }
 

@@ -7,6 +7,7 @@
   "devDependencies": {
     "babel-core": "^6.4.5",
     "babel-loader": "^6.2.1",
+    "string-replace-loader": "^1.0.0",
     "webpack": "^1.12.12"
   },
   "scripts": {
@@ -15,6 +16,7 @@
     "dev": "./node_modules/.bin/webpack --watch"
   },
   "dependencies": {
+    "codemirror": "^5.11.0",
     "uuid": "^2.0.1"
   }
 }

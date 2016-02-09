@@ -1,9 +1,9 @@
 const NORMAL_CLOSE_CODE = 1000;
 
 class TextSyncer {
-  linkElem(title, handler) {
+  linkElem(title, handler, options) {
     const port = chrome.runtime.connect();
-    this.register(port, title, handler);
+    this.register(port, title, handler, options);
     port.onMessage.addListener(this.makeMessageListener(handler));
     const textChangeListener = this.makeTextChangeListener(port, handler);
     handler.bindChange(textChangeListener, false);
@@ -40,9 +40,18 @@ class TextSyncer {
     };
   }
 
-  register(port, title, handler) {
+  register(port, title, handler, options) {
+    options = options || {};
     handler.getValue().then((text) => {
-      this.post(port, 'register', {title: title, text: text});
+      const payload = {title: title, text: text};
+      let extension = options.extension;
+      if (extension) {
+        if (extension[0] !== '.') {
+          extension = `.${extension}`;
+        }
+        payload.extension = extension;
+      }
+      this.post(port, 'register', payload);
     });
   }
 

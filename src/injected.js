@@ -1,4 +1,4 @@
-import {injectedHandlerFactory} from './handlers';
+import {injectedHandlerFactory} from './handlers/injected';
 
 const handlers = [];
 
@@ -14,8 +14,10 @@ window.addEventListener('message', function (message) {
       return;
     }
     const handler = new Handler(document.activeElement, message.data.uuid);
-    handlers.push(handler);
-    handler.postToInjector('ready');
+    handler.setup().then(() => {
+      handlers.push(handler);
+      handler.postReady();
+    });
   } else {
     for (const handler of handlers) {
       handler.handleMessage(message.data);

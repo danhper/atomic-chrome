@@ -4,12 +4,17 @@ export default class BaseInjectedHandler {
   constructor(elem, uuid) {
     this.elem = elem;
     this.uuid = uuid;
-    this.load();
-    this.bindChange(() => this.postToInjector('change'));
+  }
+
+  setup() {
+    return this.load().then((res) => {
+      this.bindChange(() => this.postToInjector('change'));
+      return res;
+    });
   }
 
   load() {
-    // implement in subclass when needed
+    return Promise.resolve();
   }
 
   handleMessage(data) {
@@ -43,6 +48,18 @@ export default class BaseInjectedHandler {
     this.silenced = true;
     f();
     this.silenced = false;
+  }
+
+  postReady() {
+    const payload = {};
+    const extension = this.getExtension();
+    if (extension) {
+      payload.extension = extension;
+    }
+    this.postToInjector('ready', payload);
+  }
+
+  getExtension() {
   }
 
   wrapSilence(f) {
