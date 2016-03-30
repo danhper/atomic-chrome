@@ -1,7 +1,7 @@
-import stackoverflow from './stackoverflow';
+import common from './common';
 import googleInbox from './google-inbox';
 
 export default [
-  stackoverflow,
+  common,
   googleInbox
 ];

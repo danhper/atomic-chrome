@@ -1,8 +1,7 @@
-// StackOveflow custom events
-// trigger keypress to update preview
+// trigger keypress when the value is set
 
 export default {
-  url: new RegExp('https?://(?:.*\.)?stackoverflow\.com.*', 'i'),
+  url: /.*/,
   bind: function (window) {
     this.on('valueSet', () => {
       const evt = window.document.createEvent('KeyboardEvent');
