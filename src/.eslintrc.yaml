@@ -3,8 +3,8 @@ extends: ../.eslintrc.yaml
 env:
   browser: true
 
-ecmaFeatures:
-  modules: true
+parserOptions:
+  sourceType: module
 
 globals:
   chrome: true

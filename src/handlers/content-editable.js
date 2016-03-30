@@ -15,13 +15,13 @@ class ContentEditableHandler extends BaseHandler {
       }
       const tag = child.tagName.toLowerCase();
       switch (tag) {
-        case 'div':
-          return this.extractText(child, {noLinebreak: true}) + '\n';
-        case 'br':
-          const noBreak = options.noLinebreak || i === this.elem.childNodes.length - 1;
-          return noBreak ? '' : '\n';
-        default:
-          return child.outerHTML;
+      case 'div':
+        return this.extractText(child, {noLinebreak: true}) + '\n';
+      case 'br':
+        const noBreak = options.noLinebreak || i === this.elem.childNodes.length - 1;
+        return noBreak ? '' : '\n';
+      default:
+        return child.outerHTML;
       }
     }).join('');
   }
