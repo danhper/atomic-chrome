@@ -8,8 +8,8 @@ export default class InjectorHandler extends BaseHandler {
     this.name = name;
     this.uuid = uuid.v4();
 
-    window.addEventListener('message', (message) => {
-      if (message.source !== window || message.data.uuid !== this.uuid) {
+    this.window.addEventListener('message', (message) => {
+      if (message.source !== this.window || message.data.uuid !== this.uuid) {
         return;
       }
       this.emit(message.data.type, message.data.payload);
@@ -34,15 +34,15 @@ export default class InjectorHandler extends BaseHandler {
   }
 
   injectScript(onload) {
-    if (document.atomicScriptInjected) {
+    if (this.document.atomicScriptInjected) {
       return onload && onload();
     }
-    document.atomicScriptInjected = true;
+    this.document.atomicScriptInjected = true;
     this.executeInjectScript(onload);
   }
 
   executeInjectScript(onload) {
-    const s = document.createElement('script');
+    const s = this.document.createElement('script');
     s.src = chrome.extension.getURL('scripts/injected.js');
     s.onload = function () {
       this.parentNode.removeChild(this);
@@ -50,7 +50,7 @@ export default class InjectorHandler extends BaseHandler {
         onload();
       }
     };
-    document.body.appendChild(s);
+    this.document.body.appendChild(s);
   }
 
   postToInjected(type, payload) {
@@ -59,7 +59,7 @@ export default class InjectorHandler extends BaseHandler {
       uuid: this.uuid,
       payload: payload || {}
     };
-    window.postMessage(message, window.location.origin);
+    this.window.postMessage(message, this.window.location.origin);
   }
 
   bindChange(f) {

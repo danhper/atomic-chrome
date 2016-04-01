@@ -2,8 +2,18 @@ import {injectedHandlerFactory} from './handlers/injected';
 
 const handlers = [];
 
+function isSourceTrusted(source) {
+  let win;
+  for (win = window; win !== window.parent; win = window.parent) {
+    if (source === window) {
+      return true;
+    }
+  }
+  return win === source;
+}
+
 window.addEventListener('message', function (message) {
-  if (message.source !== window) {
+  if (!isSourceTrusted(message.source)) {
     return;
   }
   if (message.data.type === 'initialize') {

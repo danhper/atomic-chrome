@@ -3,8 +3,10 @@ import EventEmitter from 'events';
 export default class BaseHandler extends EventEmitter {
   constructor(elem, contentEvents) {
     super();
+    this.document = elem.ownerDocument;
+    this.window = this.document.defaultView;
     this.elem = elem;
-    contentEvents.bind(this, window);
+    contentEvents.bind(this, this.window);
   }
 
   load() {
