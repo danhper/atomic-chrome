@@ -1,5 +1,5 @@
 // Google Inbox custom events
-// trigger window resize to remove placeholder
+// removes label when start typing
 
 export default {
   url: new RegExp('https://inbox\.google\.com.*', 'i'),
