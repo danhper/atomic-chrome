@@ -1,4 +1,5 @@
 import BaseHandler from './base';
+import string from 'ac-util/string';
 
 class ContentEditableHandler extends BaseHandler {
   getValue() {
@@ -31,7 +32,7 @@ class ContentEditableHandler extends BaseHandler {
       if (v.trim().length === 0) {
         return '<br>';
       }
-      return '<div>' + v + '</div>';
+      return '<div>' + string.htmlEscape(v) + '</div>';
     }).join('');
     this.elem.innerHTML = htmlValue;
     super.setValue(value);
