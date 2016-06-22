@@ -7,5 +7,9 @@ export default {
     this.setValue = (value) => {
       this.elem.innerHTML = string.htmlEscape(value);
     };
+
+    this.extractTextFromUnknownElem = (elem, options) => {
+      return elem.innerText;
+    };
   }
 };

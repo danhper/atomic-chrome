@@ -22,9 +22,13 @@ class ContentEditableHandler extends BaseHandler {
         const noBreak = options.noLinebreak || i === this.elem.childNodes.length - 1;
         return noBreak ? '' : '\n';
       default:
-        return child.outerHTML;
+        return this.extractTextFromUnknownElem(child, options);
       }
     }).join('');
+  }
+
+  extractTextFromUnknownElem(elem, _options) {
+    return elem.outerHTML;
   }
 
   setValue(value) {
