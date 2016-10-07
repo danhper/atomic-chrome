@@ -12,7 +12,10 @@ const commonModes = {
 
 class InjectedCodeMirrorHandler extends BaseInjectedHandler {
   load() {
-    this.editor = this.elem.parentElement.parentElement.CodeMirror;
+    while (!this.elem.classList.contains('CodeMirror')) {
+      this.elem = this.elem.parentElement;
+    }
+    this.editor = this.elem.CodeMirror;
     return Promise.resolve();
   }
 

@@ -7,9 +7,13 @@ class CodeMirrorHandler extends InjectorHandler {
 }
 
 CodeMirrorHandler.canHandle = function (elem) {
-  return elem.parentElement
-    && elem.parentElement.parentElement
-    && elem.parentElement.parentElement.classList.contains('CodeMirror');
+  while (elem) {
+    if (elem.classList.contains('CodeMirror')) {
+      return true;
+    }
+    elem = elem.parentElement;
+  }
+  return false;
 };
 
 export default CodeMirrorHandler;
