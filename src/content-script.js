@@ -2,6 +2,7 @@ import {handlerFactory} from './handlers';
 import {textSyncer, contentEvents, elementNormalizer} from './content-script-tools';
 
 function run() {
+  const url = document.URL;
   const title = document.title;
   const activeElement = elementNormalizer.normalize(document.activeElement);
 
@@ -16,7 +17,7 @@ function run() {
   const handler = new Handler(activeElement, contentEvents);
 
   handler.load().then((options) => {
-    textSyncer.linkElem(title, handler, options);
+    textSyncer.linkElem(url, title, handler, options);
   });
 }
 
