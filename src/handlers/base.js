@@ -13,8 +13,8 @@ export default class BaseHandler extends EventEmitter {
     return Promise.resolve();
   }
 
-  setValue(value) {
-    this.emit('valueSet', value);
+  setValue(value, options) {
+    this.emit('valueSet', value, options || {});
   }
 
   getValue() {

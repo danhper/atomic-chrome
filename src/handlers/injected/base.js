@@ -63,9 +63,9 @@ export default class BaseInjectedHandler {
   }
 
   wrapSilence(f) {
-    return () => {
+    return (...args) => {
       if (!this.silenced) {
-        f();
+        f(...args);
       }
     };
   }

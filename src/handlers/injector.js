@@ -21,15 +21,22 @@ export default class InjectorHandler extends BaseHandler {
     return new Promise((resolve) => this.once('ready', resolve));
   }
 
-  setValue(value) {
+  setValue(value, options) {
     this.postToInjected('setValue', {text: value});
-    super.setValue(value);
+    super.setValue(value, options);
   }
 
   getValue() {
     this.postToInjected('getValue');
     return new Promise((resolve) => {
-      this.once('value', (payload) => resolve(payload.text));
+      if (this._getValueCallback) {
+        this.removeListener('value', this._getValueCallback);
+      }
+      this._getValueCallback = (payload) => {
+        resolve(payload.text);
+        this._getValueCallback = null;
+      };
+      this.once('value', this._getValueCallback);;
     });
   }
 

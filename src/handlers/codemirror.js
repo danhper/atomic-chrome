@@ -4,6 +4,11 @@ class CodeMirrorHandler extends InjectorHandler {
   constructor(elem, contentEvents) {
     super(elem, contentEvents, 'codemirror');
   }
+
+  setValue(value, options) {
+    options = Object.assign({}, {triggerDOMEvent: false}, options);
+    super.setValue(value, options);
+  }
 }
 
 CodeMirrorHandler.canHandle = function (elem) {
